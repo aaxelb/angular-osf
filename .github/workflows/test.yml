@@ -5,6 +5,7 @@ on:
     branches: ['*'] # or change to match your default branch
   push:
     branches: ['*']
+  workflow_dispatch:
 
 jobs:
   test:
@@ -23,7 +24,7 @@ jobs:
         run: npm ci
 
       - name: Run Jest tests with coverage
-        run: npm run ci
+        run: npm run test
 
       - name: Check coverage thresholds
         run: npm run test:check-coverage-thresholds
