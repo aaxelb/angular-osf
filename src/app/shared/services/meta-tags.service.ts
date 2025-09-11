@@ -109,7 +109,7 @@ export class MetaTagsService {
   }
 
   private getSchemaDotOrgJsonLdHeadTag(osfid: string): Observable<HeadTagDef | null> {
-    return this.metadataRecords.getMetadataRecord(osfid, MetadataRecordFormat.SchemaDotOrgDataset).pipe(
+    return this.metadataRecords.fetchMetadataRecord(osfid, MetadataRecordFormat.SchemaDotOrgDataset).pipe(
       map((jsonLd) =>
         jsonLd
           ? {

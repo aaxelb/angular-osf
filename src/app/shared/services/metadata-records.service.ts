@@ -3,21 +3,22 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { MetadataRecordFormat } from '../enums';
+import { ENVIRONMENT } from '@osf/core/constants/environment.token';
 
-import { environment } from 'src/environments/environment';
+import { MetadataRecordFormat } from '../enums';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MetadataRecordsService {
-  private readonly http: HttpClient = inject(HttpClient);
+  #http = inject(HttpClient);
+  #env = inject(ENVIRONMENT);
 
   metadataRecordUrl(osfid: string, format: MetadataRecordFormat): string {
-    return `${environment.webUrl}/metadata/${osfid}/?format=${format}`;
+    return `${this.#env.webUrl}/metadata/${osfid}/?format=${format}`;
   }
 
-  getMetadataRecord(osfid: string, format: MetadataRecordFormat): Observable<string> {
-    return this.http.get(this.metadataRecordUrl(osfid, format), { responseType: 'text' });
+  fetchMetadataRecord(osfid: string, format: MetadataRecordFormat): Observable<string> {
+    return this.#http.get(this.metadataRecordUrl(osfid, format), { responseType: 'text' });
   }
 }
